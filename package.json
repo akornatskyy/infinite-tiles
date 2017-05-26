@@ -1,0 +1,21 @@
+{
+  "name": "infinite-tiles",
+  "version": "0.0.1",
+  "description": "Infinite Tiles",
+  "scripts": {
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/akornatskyy/infinite-tiles.git"
+  },
+  "author": "Andriy Kornatskyy",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/akornatskyy/infinite-tiles/issues"
+  },
+  "homepage": "https://github.com/akornatskyy/infinite-tiles",
+  "devDependencies": {
+  },
+  "dependencies": {
+  }
+}

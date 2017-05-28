@@ -2,7 +2,9 @@
   "name": "infinite-tiles",
   "version": "0.0.1",
   "description": "Infinite Tiles",
+  "main": "./index.js",
   "scripts": {
+    "lint": "eslint *.js"
   },
   "repository": {
     "type": "git",
@@ -15,6 +17,9 @@
   },
   "homepage": "https://github.com/akornatskyy/infinite-tiles",
   "devDependencies": {
+    "eslint": "^3.19.0",
+    "eslint-config-defaults": "^9.0.0",
+    "eslint-plugin-standard": "^3.0.1"
   },
   "dependencies": {
   }

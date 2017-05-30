@@ -4,6 +4,7 @@
   "description": "Infinite Tiles",
   "main": "./index.js",
   "scripts": {
+    "build": "rm -rf dist && webpack -p",
     "lint": "eslint *.js"
   },
   "repository": {
@@ -19,7 +20,8 @@
   "devDependencies": {
     "eslint": "^3.19.0",
     "eslint-config-defaults": "^9.0.0",
-    "eslint-plugin-standard": "^3.0.1"
+    "eslint-plugin-standard": "^3.0.1",
+    "webpack": "^2.6.1"
   },
   "dependencies": {
   }

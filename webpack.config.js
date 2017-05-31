@@ -17,7 +17,13 @@ module.exports = {
   },
   plugins: plugins,
   module: {
-    loaders: []
+    loaders: [{
+      test: /\.js$/,
+      loader: 'babel-loader',
+      query: {
+        presets: ['es2015']
+      }
+    }]
   },
   stats: {
     colors: true

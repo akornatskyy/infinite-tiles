@@ -1,8 +1,12 @@
 const path = require('path'),
   pkg = require('./package.json'),
-  webpack = require('webpack');
+  webpack = require('webpack'),
+  HtmlPlugin = require('html-webpack-plugin');
 
 const plugins = [
+  new HtmlPlugin({
+    title: pkg.description
+  }),
   new webpack.NoEmitOnErrorsPlugin()
 ];
 

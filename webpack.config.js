@@ -4,6 +4,10 @@ const path = require('path'),
   HtmlPlugin = require('html-webpack-plugin');
 
 const plugins = [
+  new webpack.optimize.CommonsChunkPlugin({
+    name: 'lib',
+    minChunks: Infinity
+  }),
   new HtmlPlugin({
     title: pkg.description
   }),

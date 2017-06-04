@@ -1,4 +1,5 @@
-const path = require('path'),
+const prod = process.env.NODE_ENV && process.env.NODE_ENV.startsWith('prod'),
+  path = require('path'),
   pkg = require('./package.json'),
   webpack = require('webpack'),
   HtmlPlugin = require('html-webpack-plugin');
@@ -13,6 +14,16 @@ const plugins = [
   }),
   new webpack.NoEmitOnErrorsPlugin()
 ];
+
+if (prod) {
+  plugins.push(
+    new webpack.optimize.OccurrenceOrderPlugin(),
+    new webpack.optimize.UglifyJsPlugin({
+      compress: {
+        warnings: false
+      }
+    }));
+}
 
 module.exports = {
   entry: {

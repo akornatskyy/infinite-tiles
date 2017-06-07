@@ -27,7 +27,7 @@ if (prod) {
 
 module.exports = {
   entry: {
-    lib: Object.keys(pkg.dependencies),
+    //lib: Object.keys(pkg.dependencies),
     app: pkg.main
   },
   output: {

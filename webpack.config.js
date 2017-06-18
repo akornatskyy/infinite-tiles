@@ -5,10 +5,10 @@ const prod = process.env.NODE_ENV && process.env.NODE_ENV.startsWith('prod'),
   HtmlPlugin = require('html-webpack-plugin');
 
 const plugins = [
-  new webpack.optimize.CommonsChunkPlugin({
-    name: 'lib',
-    minChunks: Infinity
-  }),
+  // new webpack.optimize.CommonsChunkPlugin({
+  //   name: 'lib',
+  //   minChunks: Infinity
+  // }),
   new HtmlPlugin({
     title: pkg.description
   }),
@@ -41,6 +41,12 @@ module.exports = {
       loader: 'babel-loader',
       query: {
         presets: ['es2015']
+      }
+    }, {
+      test: /\.(jpg|png)$/,
+      loader: 'file-loader',
+      query: {
+        name: '[path][name].[hash:5].[ext]'
       }
     }]
   },

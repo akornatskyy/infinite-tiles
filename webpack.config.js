@@ -1,8 +1,8 @@
-const prod = process.env.NODE_ENV && process.env.NODE_ENV.startsWith('prod'),
-  path = require('path'),
-  pkg = require('./package.json'),
-  webpack = require('webpack'),
-  HtmlPlugin = require('html-webpack-plugin');
+const prod = process.env.NODE_ENV && process.env.NODE_ENV.startsWith('prod');
+const path = require('path');
+const pkg = require('./package.json');
+const webpack = require('webpack');
+const HtmlPlugin = require('html-webpack-plugin');
 
 const plugins = [
   // new webpack.optimize.CommonsChunkPlugin({
@@ -27,7 +27,7 @@ if (prod) {
 
 module.exports = {
   entry: {
-    //lib: Object.keys(pkg.dependencies),
+    // lib: Object.keys(pkg.dependencies),
     app: pkg.main
   },
   output: {

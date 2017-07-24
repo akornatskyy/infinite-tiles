@@ -1,4 +1,4 @@
-import Loader from '../lib/loader';
+import Loader from './loader';
 
 export default class Assets {
   static load(callback) {

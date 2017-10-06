@@ -1,6 +1,7 @@
 # Infinite Tiles
 
 [![Build Status](https://travis-ci.org/akornatskyy/infinite-tiles.svg?branch=master)](https://travis-ci.org/akornatskyy/infinite-tiles)
+[![Dependency Status](https://gemnasium.com/badges/github.com/akornatskyy/infinite-tiles.svg)](https://gemnasium.com/github.com/akornatskyy/infinite-tiles)
 
 ## Setup
 

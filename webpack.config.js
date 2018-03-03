@@ -3,6 +3,7 @@ const path = require('path');
 const pkg = require('./package.json');
 const webpack = require('webpack');
 const HtmlPlugin = require('html-webpack-plugin');
+const UglifyJsPlugin = require('uglifyjs-webpack-plugin')
 
 const plugins = [
   // new webpack.optimize.CommonsChunkPlugin({
@@ -18,14 +19,11 @@ const plugins = [
 if (prod) {
   plugins.push(
     new webpack.optimize.OccurrenceOrderPlugin(),
-    new webpack.optimize.UglifyJsPlugin({
-      compress: {
-        warnings: false
-      }
-    }));
+    new UglifyJsPlugin());
 }
 
 module.exports = {
+  mode: prod ? 'production' : 'development',
   entry: {
     // lib: Object.keys(pkg.dependencies),
     app: pkg.main
@@ -36,7 +34,7 @@ module.exports = {
   },
   plugins: plugins,
   module: {
-    loaders: [{
+    rules: [{
       test: /\.js$/,
       loader: 'babel-loader',
       query: {

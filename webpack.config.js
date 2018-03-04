@@ -3,7 +3,7 @@ const path = require('path');
 const pkg = require('./package.json');
 const webpack = require('webpack');
 const HtmlPlugin = require('html-webpack-plugin');
-const UglifyJsPlugin = require('uglifyjs-webpack-plugin')
+const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
 
 const plugins = [
   // new webpack.optimize.CommonsChunkPlugin({

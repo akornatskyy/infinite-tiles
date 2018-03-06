@@ -6,10 +6,6 @@ const HtmlPlugin = require('html-webpack-plugin');
 const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
 
 const plugins = [
-  // new webpack.optimize.CommonsChunkPlugin({
-  //   name: 'lib',
-  //   minChunks: Infinity
-  // }),
   new HtmlPlugin({
     title: pkg.description
   }),
@@ -25,14 +21,27 @@ if (prod) {
 module.exports = {
   mode: prod ? 'production' : 'development',
   entry: {
-    // lib: Object.keys(pkg.dependencies),
-    app: pkg.main
+    app: pkg.main,
+    lib: [
+      './lib/staggered-map'
+    ]
   },
   output: {
     filename: 'js/[name].[chunkhash:5].js',
     path: path.resolve(__dirname, 'dist')
   },
   plugins: plugins,
+  optimization: {
+    splitChunks: {
+      cacheGroups: {
+        commons: {
+          chunks: 'initial',
+          minChunks: 2,
+          name: 'lib'
+        }
+      }
+    }
+  },
   module: {
     rules: [{
       test: /\.js$/,

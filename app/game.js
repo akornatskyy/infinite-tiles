@@ -1,9 +1,12 @@
+import Api from 'api';
+
 import Assets from './assets';
 
 export default class Game {
   constructor(canvas) {
     this.canvas = canvas;
     this.ctx = canvas.getContext('2d');
+    this.api = new Api();
     this.ts = 0;
     this.render = this.render.bind(this);
   }
@@ -14,6 +17,7 @@ export default class Game {
     }
 
     Assets.load(() => {
+      this.api.connect();
       window.requestAnimationFrame(ts => {
         this.ts = ts;
         this.render(ts);

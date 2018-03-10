@@ -1,5 +1,6 @@
 import Rectangle from '../../lib/math/rectangle';
 import StaggeredMap from '../../lib/staggered-map';
+import Storage from '../../lib/staggered-map/storage';
 import {
   StaggeredMapRenderer
 } from '../../lib/staggered-map/renderer';
@@ -28,10 +29,11 @@ export default class DemoScreen {
       game.canvas.height += BOUNDS.top * 2;
     }
 
-    this.map = new StaggeredMap(TILE_SIZE, BOUNDS);
+    const storage = new Storage(this.game.api);
+    this.map = new StaggeredMap(TILE_SIZE, BOUNDS, storage);
     this.mapRenderer = new StaggeredMapRenderer(
       this.map,
-      new MapRenderer(game.ctx, this.map.storage, TILE_SIZE, BOUNDS, debug));
+      new MapRenderer(game.ctx, storage, TILE_SIZE, BOUNDS, debug));
   }
 
   render(delta) {

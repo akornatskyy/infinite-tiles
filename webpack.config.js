@@ -30,6 +30,11 @@ module.exports = {
     filename: 'js/[name].[chunkhash:5].js',
     path: path.resolve(__dirname, 'dist')
   },
+  resolve: {
+    alias: {
+      api: './api/' + (process.env.API || 'mock')
+    }
+  },
   plugins: plugins,
   optimization: {
     splitChunks: {

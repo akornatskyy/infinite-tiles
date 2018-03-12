@@ -5,6 +5,7 @@ import {
 } from '../../lib/staggered-map/renderer';
 
 import MapRenderer from './map-renderer';
+import DemoController from './demo-controller';
 
 
 const TILE_SIZE = {
@@ -32,6 +33,8 @@ export default class DemoScreen {
     this.mapRenderer = new StaggeredMapRenderer(
       this.map,
       new MapRenderer(game.ctx, this.map.storage, TILE_SIZE, BOUNDS, debug));
+
+    this.controller = new DemoController(this.map.viewport);
   }
 
   render(delta) {
@@ -40,6 +43,7 @@ export default class DemoScreen {
   }
 
   update(delta) {
+    this.controller.update(delta);
     this.map.update();
   }
 

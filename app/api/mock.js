@@ -24,6 +24,10 @@ export default class MockAPI {
     const t = p.t;
     if (t === 'tiles') {
       const coords = p.coords;
+      if (!coords) {
+        return;
+      }
+      
       const [, ymin] = p.area;
       const data = [];
       for (var i = 1; i < coords.length; i += 2) {

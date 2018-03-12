@@ -23,7 +23,8 @@ module.exports = {
   entry: {
     app: pkg.main,
     lib: [
-      './lib/staggered-map'
+      './lib/staggered-map',
+      './lib/staggered-map/renderer'
     ]
   },
   output: {
@@ -42,7 +43,8 @@ module.exports = {
         commons: {
           chunks: 'initial',
           minChunks: 2,
-          name: 'lib'
+          name: 'lib',
+          minSize: 0
         }
       }
     }

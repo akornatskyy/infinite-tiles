@@ -23,6 +23,7 @@ module.exports = {
   entry: {
     app: pkg.main,
     lib: [
+      'msgpack-lite',
       './lib/staggered-map',
       './lib/staggered-map/renderer'
     ]
@@ -61,6 +62,14 @@ module.exports = {
       loader: 'file-loader',
       query: {
         name: '[path][name].[hash:5].[ext]'
+      }
+    }, {
+      test: path.join(__dirname, 'app', 'api', 'ws.js'),
+      loader: 'string-replace-loader',
+      query: {
+        search: 'host = \'\'',
+        replace: 'host = "' + (process.env.WS_HOST || '') + '"',
+        strict: true
       }
     }]
   },

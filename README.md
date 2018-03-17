@@ -8,6 +8,15 @@
 Install dependencies with [npm](https://www.npmjs.com):
 
     npm i
+    npm run lint
+
+Build resources with *mock* api strategy:
+
+    npm run build
+
+or *ws* (web socket), production build:
+
+    NODE_ENV=prod API=ws WS_HOST=ws://192.168.56.10:8080/game npm run build
 
 ## Run
 
@@ -16,10 +25,3 @@ Serve files with a web server with hot loading:
     npm start
 
 Open your browser at [http://localhost:8080](http://localhost:8080).
-
-## Build
-
-Build files (into `dist/`):
-
-    npm run lint
-    NODE_ENV=prod npm run build

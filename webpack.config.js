@@ -23,7 +23,6 @@ module.exports = {
   entry: {
     app: pkg.main,
     lib: [
-      'msgpack-lite',
       './lib/staggered-map',
       './lib/staggered-map/renderer'
     ]
@@ -63,14 +62,6 @@ module.exports = {
       query: {
         name: '[path][name].[hash:5].[ext]'
       }
-    }, {
-      test: path.join(__dirname, 'app', 'api', 'ws.js'),
-      loader: 'string-replace-loader',
-      query: {
-        search: 'host = \'\'',
-        replace: 'host = "' + (process.env.WS_HOST || '') + '"',
-        strict: true
-      }
     }]
   },
   stats: {
@@ -81,3 +72,16 @@ module.exports = {
     compress: true
   }
 };
+
+if (process.env.API === 'ws') {
+  module.exports.entry.lib.push('msgpack-lite');
+  module.exports.module.rules.push({
+    test: path.join(__dirname, 'app', 'api', 'ws.js'),
+    loader: 'string-replace-loader',
+    query: {
+      search: 'host = \'\'',
+      replace: 'host = "' + (process.env.WS_HOST || '') + '"',
+      strict: true
+    }
+  });
+}

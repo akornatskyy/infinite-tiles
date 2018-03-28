@@ -76,4 +76,38 @@ Sent by the server in response to the client request.
 | ---------- | --------------- | ------------------------------------------------------------ |
 | t          | string          | tiles                                                        |
 | ref        | unsigned byte   | Reference number, returned back by the server to match the client request. |
-| data       | list of objects | The list of tile metadata corresponding to request coords position. |
+| data       | list of objects | The list of tile metadata corresponding to request coords positions. |
+
+### place
+
+Sent by the client to create a new object at given tile.
+
+| Field Name | Field Type | Notes                         |
+| ---------- | ---------- | ----------------------------- |
+| t          | string     | place                         |
+| x          | int        | The target tile x-coordinate. |
+| y          | int        | The target tile y-coordinate. |
+
+Sent by the server to the client to instruct place multiple objects at the given tile coordinates.
+
+| Field Name | Field Type      | Notes                         |
+| ---------- | --------------- | ----------------------------- |
+| t          | string          | place                         |
+| objects    | list of objects | The list of objects to place. |
+
+Object contains any metainformation, e.g. id.
+
+| Field Name | Field Type | Notes                         |
+| ---------- | ---------- | ----------------------------- |
+| id         | string     | Object id.                    |
+| x          | int        | The target tile x-coordinate. |
+| y          | int        | The target tile y-coordinate. |
+
+### remove
+
+Sent by the server to the client to remove an object by id.
+
+| Field Name | Field Type | Notes                   |
+| ---------- | ---------- | ----------------------- |
+| t          | string     | removed                 |
+| objects         | list of strings | The list of objects to remove by id. |

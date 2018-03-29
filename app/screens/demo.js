@@ -4,6 +4,8 @@ import {
   StaggeredMapRenderer
 } from '../../lib/staggered-map/renderer';
 
+import Sphere from '../assets/sphere';
+
 import MapRenderer from './map-renderer';
 import DemoController from './demo-controller';
 
@@ -29,12 +31,19 @@ export default class DemoScreen {
       game.canvas.height += BOUNDS.top * 2;
     }
 
-    this.map = new StaggeredMap(this.game.api, TILE_SIZE, BOUNDS);
+    this.objects = [];
+
+    this.api = game.api;
+    this.api.on('open', this.onopen.bind(this));
+    this.api.on('place', this.onplace.bind(this));
+    this.api.on('remove', this.onremove.bind(this));
+
+    this.map = new StaggeredMap(game.api, TILE_SIZE, BOUNDS);
     this.mapRenderer = new StaggeredMapRenderer(
       this.map,
       new MapRenderer(game.ctx, this.map.storage, TILE_SIZE, BOUNDS, debug));
 
-    this.controller = new DemoController(this.map.viewport);
+    this.controller = new DemoController(this);
   }
 
   render(delta) {
@@ -51,5 +60,37 @@ export default class DemoScreen {
     this.game.ctx.clearRect(
       0, 0, this.game.canvas.width, this.game.canvas.height);
     this.mapRenderer.draw();
+    this.objects.forEach(o => o.draw());
+  }
+
+  /* API callbacks */
+
+  onopen() {
+    this.objects = [];
+  }
+
+  onplace(p) {
+    console.log('demo > onplace: %o', p);
+    p.objects.forEach(object => {
+      const index = this.objects.findIndex(o => o.id === object.id);
+      if (index < 0) {
+        const sphere = new Sphere(this.game.ctx, this.map.viewport, {
+          x: object.x,
+          y: object.y
+        });
+        sphere.id = object.id
+        this.objects.push(sphere);
+      }
+    });
+  }
+
+  onremove(p) {
+    console.log('demo > onremove: %o', p);
+    p.objects.forEach(id => {
+      const index = this.objects.findIndex(o => o.id === id);
+      if (index >= 0) {
+        this.objects.splice(index, 1);
+      }
+    });
   }
 }

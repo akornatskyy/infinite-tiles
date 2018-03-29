@@ -1,12 +1,14 @@
 import EventEmitter from 'events';
 
-
 const toxic = f => setTimeout(f, 750 + Math.random() * 500);
+const newid = () => Math.random().toString(36).substring(2);
 
 export default class MockAPI {
   constructor() {
     this.eventEmitter = new EventEmitter();
     this.ready = false;
+    this.objects = [];
+    setTimeout(() => setInterval(this.recycle.bind(this), 1000), 5000);
   }
 
   connect() {
@@ -44,6 +46,33 @@ export default class MockAPI {
           data: data
         });
       });
+    } else if (t === 'place') {
+      toxic(() => {
+        const id = newid();
+        this.objects.push(id);
+        this.eventEmitter.emit('place', {
+          objects: [{
+            id: id,
+            x: p.x,
+            y: p.y
+          }]
+        });
+      });
     }
+  }
+
+  recycle() {
+    if (this.objects.length === 0) {
+      return;
+    }
+
+    let n = Math.floor(Math.random() * 3);
+    if (n === 0) {
+      return;
+    }
+
+    this.eventEmitter.emit('remove', {
+      objects: this.objects.splice(0, n)
+    });
   }
 };

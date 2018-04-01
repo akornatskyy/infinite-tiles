@@ -30,10 +30,13 @@ Open your browser at [http://localhost:8080](http://localhost:8080).
 
 ### Packet format
 
-The server accepts connections from web socket client and communicates with it using
-*packets*. A packet is a sequence of bytes sent over the web socket connection using
-[messagepack](https://msgpack.org/) serialization format. The meaning of a packet depends
-on its packet type.
+The server accepts connections from web socket client and communicates with it
+using *packets*. A packet is a sequence of bytes sent over the web socket
+connection using [messagepack](https://msgpack.org/) serialization format.
+
+![network protocol](./network-protocol.png)
+
+The meaning of a packet depends on packet type.
 
 | Field Name | Field Type | Notes                                          |
 | ---------- | ---------- | ---------------------------------------------- |

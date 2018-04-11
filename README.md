@@ -98,7 +98,7 @@ Sent by the server to the client to instruct place multiple objects at the given
 | t          | string          | place                         |
 | objects    | list of objects | The list of objects to place. |
 
-Object contains any metainformation, e.g. id.
+Object contains any meta information, e.g. id.
 
 | Field Name | Field Type | Notes                         |
 | ---------- | ---------- | ----------------------------- |
@@ -114,3 +114,41 @@ Sent by the server to the client to remove an object by id.
 | ---------- | ---------- | ----------------------- |
 | t          | string     | removed                 |
 | objects         | list of strings | The list of objects to remove by id. |
+
+### move
+
+Sent by the client to the server to move an object to specified tile.
+
+
+| Field Name | Field Type | Notes                   |
+| ---------- | ---------- | ----------------------- |
+| t          | string     | move                 |
+| id         | string | Object id. |
+| x | int | The target tile x-coordinate. |
+| y | int | The target tile y-coordinate. |
+
+Sent by the server to the client to instruct move multiple objects to the given tile coordinates.
+
+| Field Name | Field Type      | Notes                        |
+| ---------- | --------------- | ---------------------------- |
+| t          | string          | move                         |
+| objects    | list of objects | The list of objects to move. |
+
+Object contains the following information.
+
+| Field Name | Field Type | Notes                                 |
+| ---------- | ---------- | ------------------------------------- |
+| id         | string     | Object id.                            |
+| x          | int        | The target tile x-coordinate.         |
+| y          | int        | The target tile y-coordinate.         |
+| duration   | float      | The overall time to perform the move. |
+| elapsed    | float      | The time elapsed already.             |
+
+### moved
+
+Sent by the server to the client to signal an object has been moved to the target tile.
+
+| Field Name | Field Type | Notes      |
+| ---------- | ---------- | ---------- |
+| t          | string     | move       |
+| id         | string     | Object id. |

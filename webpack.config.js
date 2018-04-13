@@ -24,6 +24,7 @@ module.exports = {
     app: pkg.main,
     lib: [
       './lib/staggered-map',
+      './lib/staggered-map/mixins',
       './lib/staggered-map/renderer'
     ]
   },

@@ -7,8 +7,7 @@ export default class MockAPI {
   constructor() {
     this.eventEmitter = new EventEmitter();
     this.ready = false;
-    this.objects = [];
-    setTimeout(() => setInterval(this.recycle.bind(this), 1000), 5000);
+    this.controller = new Controller(this.eventEmitter);
   }
 
   connect() {
@@ -26,39 +25,55 @@ export default class MockAPI {
 
   send(p) {
     console.log('api > send: %o', p);
-    const t = p.t;
-    if (t === 'tiles') {
-      const coords = p.coords;
-      if (!coords) {
-        return;
-      }
-
-      toxic(() => {
-        const [, ymin] = p.area;
-        const data = [];
-        for (var i = 1; i < coords.length; i += 2) {
-          const y = ymin + coords[i];
-          data.push(Math.abs(y) % 2);
-        }
-
-        this.eventEmitter.emit('tiles', {
-          ref: p.ref,
-          data: data
-        });
-      });
-    } else if (t === 'place') {
-      toxic(() => {
-        const id = newid();
-        this.objects.push(id);
-        this.eventEmitter.emit('place', {
-          objects: [{
-            id: id,
-            x: p.x,
-            y: p.y
-          }]
-        });
-      });
+    switch (p.t) {
+      case 'tiles':
+        toxic(() => this.controller.tiles(p));
+        break;
+      case 'place':
+        this.controller.place(p);
+        break;
+      default:
+        console.warn('api > send: unknown packet [' + p.t + ']');
     }
+  }
+}
+
+class Controller {
+  constructor(eventEmitter) {
+    this.eventEmitter = eventEmitter;
+    this.objects = [];
+    setTimeout(() => setInterval(this.recycle.bind(this), 1000), 5000);
+  }
+
+  tiles(p) {
+    const coords = p.coords;
+    if (!coords) {
+      return;
+    }
+
+    const [, ymin] = p.area;
+    const data = [];
+    for (var i = 1; i < coords.length; i += 2) {
+      const y = ymin + coords[i];
+      data.push(Math.abs(y) % 2);
+    }
+
+    this.eventEmitter.emit('tiles', {
+      ref: p.ref,
+      data: data
+    });
+  }
+
+  place(p) {
+    const id = newid();
+    this.objects.push(id);
+    this.eventEmitter.emit('place', {
+      objects: [{
+        id: id,
+        x: p.x,
+        y: p.y
+      }]
+    });
   }
 
   recycle() {
@@ -75,4 +90,4 @@ export default class MockAPI {
       objects: this.objects.splice(0, n)
     });
   }
-};
+}

@@ -32,6 +32,9 @@ export default class MockAPI {
       case 'place':
         this.controller.place(p);
         break;
+      case 'move':
+        this.controller.move(p);
+        break;
       default:
         console.warn('api > send: unknown packet [' + p.t + ']');
     }
@@ -74,6 +77,31 @@ class Controller {
         y: p.y
       }]
     });
+  }
+
+  move(p) {
+    const id = p.id;
+    const index = this.objects.indexOf(id);
+    if (index >= 0) {
+      this.objects.splice(index, 1);
+    }
+
+    const duration = 1 + Math.random() * 5;
+    this.eventEmitter.emit('move', {
+      id: id,
+      x: p.x,
+      y: p.y,
+      duration: duration,
+      elapsed: 0
+    });
+    setTimeout(
+      () => {
+        this.objects.push(id);
+        this.eventEmitter.emit('moved', {
+          id: id
+        });
+      },
+      duration * 1000);
   }
 
   recycle() {

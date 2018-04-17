@@ -32,11 +32,14 @@ export default class DemoScreen {
     }
 
     this.objects = [];
+    this.sphere = null;
 
     this.api = game.api;
     this.api.on('open', this.onopen.bind(this));
     this.api.on('place', this.onplace.bind(this));
     this.api.on('remove', this.onremove.bind(this));
+    this.api.on('move', this.onmove.bind(this));
+    this.api.on('moved', this.onmoved.bind(this));
 
     this.map = new StaggeredMap(game.api, TILE_SIZE, BOUNDS);
     this.mapRenderer = new StaggeredMapRenderer(
@@ -54,6 +57,7 @@ export default class DemoScreen {
   update(delta) {
     this.controller.update(delta);
     this.map.update();
+    this.objects.forEach(o => o.update(delta));
   }
 
   draw() {
@@ -71,16 +75,13 @@ export default class DemoScreen {
 
   onplace(p) {
     console.log('demo > onplace: %o', p);
-    p.objects.forEach(object => {
-      const index = this.objects.findIndex(o => o.id === object.id);
-      if (index < 0) {
-        const sphere = new Sphere(this.game.ctx, this.map.viewport, {
-          x: object.x,
-          y: object.y
-        });
-        sphere.id = object.id
-        this.objects.push(sphere);
-      }
+    p.objects.forEach(o => {
+      const sphere = new Sphere(this.game.ctx, this.map.viewport, {
+        x: o.x,
+        y: o.y
+      });
+      sphere.id = o.id
+      this.objects.unshift(sphere);
     });
   }
 
@@ -89,8 +90,42 @@ export default class DemoScreen {
     p.objects.forEach(id => {
       const index = this.objects.findIndex(o => o.id === id);
       if (index >= 0) {
-        this.objects.splice(index, 1);
+        const sphere = this.objects.splice(index, 1)[0];
+        if (this.sphere === sphere) {
+          this.sphere = null;
+        }
       }
     });
+  }
+
+  onmove(p) {
+    console.log('demo > onmove: %o', p);
+    p.objects.forEach(o => {
+      const id = o.id;
+      const index = this.objects.findIndex(o => o.id === id);
+      if (index >= 0) {
+        const sphere = this.objects[index];
+        this.objects.splice(index, 1);
+        this.objects.push(sphere);
+        sphere.moveTo({
+          x: o.x,
+          y: o.y
+        }, o.duration, o.elapsed);
+      }
+    });
+  }
+
+  onmoved(p) {
+    console.log('demo > onmoved: %o', p);
+    const id = p.id;
+    const index = this.objects.findIndex(o => o.id === id);
+    if (index >= 0) {
+      const sphere = this.objects[index];
+      this.objects.splice(index, 1);
+      this.objects.unshift(sphere);
+      if (this.sphere === sphere) {
+        this.sphere = null;
+      }
+    }
   }
 }

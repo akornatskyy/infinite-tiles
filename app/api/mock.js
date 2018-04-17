@@ -88,11 +88,13 @@ class Controller {
 
     const duration = 1 + Math.random() * 5;
     this.eventEmitter.emit('move', {
-      id: id,
-      x: p.x,
-      y: p.y,
-      duration: duration,
-      elapsed: 0
+      objects: [{
+        id: id,
+        x: p.x,
+        y: p.y,
+        duration: duration,
+        elapsed: 0
+      }]
     });
     setTimeout(
       () => {
@@ -109,7 +111,7 @@ class Controller {
       return;
     }
 
-    let n = Math.floor(Math.random() * 3);
+    const n = Math.floor(Math.random() * 3);
     if (n === 0) {
       return;
     }

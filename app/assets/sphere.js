@@ -1,10 +1,11 @@
 import Rectangle from '../../lib/math/rectangle';
 
 import {StaggeredTileRenderer} from '../../lib/staggered-map/renderer';
+import {MoverMixin} from '../../lib/staggered-map/mixins';
 
 import Assets from '../assets';
 
-export default class Sphere extends StaggeredTileRenderer {
+export default class Sphere extends MoverMixin(StaggeredTileRenderer) {
   constructor(ctx, viewport, tile) {
     super(viewport, tile, new Rectangle(
       (viewport.world.tileSize.width - Assets.sphere.width) / 2,
@@ -14,6 +15,13 @@ export default class Sphere extends StaggeredTileRenderer {
   }
 
   drawTile(x, y) {
-    this.ctx.drawImage(Assets.sphere, x, y);
+    if (this.moving) {
+      this.ctx.drawImage(Assets.sphere, x, y);
+    } else {
+      const alpha = this.ctx.globalAlpha;
+      this.ctx.globalAlpha = 0.9;
+      this.ctx.drawImage(Assets.sphere, x, y);
+      this.ctx.globalAlpha = alpha;
+    }
   }
 }

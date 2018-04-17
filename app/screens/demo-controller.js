@@ -6,7 +6,7 @@ export default class DemoController {
     this.viewport = screen.map.viewport;
     this.time = 0.0;
     this.velocity = new Vector();
-    this.place = this.place.bind(this);
+    this.placeOrMove = this.placeOrMove.bind(this);
 
     this.api = screen.api;
     this.api.on('open', this.onopen.bind(this));
@@ -18,7 +18,7 @@ export default class DemoController {
   }
 
   onopen() {
-    this.timer = setTimeout(() => setInterval(this.place, 250), 3000);
+    this.timer = setTimeout(() => setInterval(this.placeOrMove, 250), 2000);
   }
 
   onclose() {
@@ -27,7 +27,7 @@ export default class DemoController {
   }
 
   update(delta) {
-    if (this.timer === null) {
+    if (!this.timer) {
       return;
     }
 
@@ -53,17 +53,33 @@ export default class DemoController {
     p.scaleAndAdd(this.velocity, delta);
   }
 
-  place() {
+  placeOrMove() {
     const tiles = this.screen.map.viewport.tiles();
     const objects = this.screen.objects;
+    const x = Math.floor(Math.random() * tiles.width + 1) + tiles.left;
+    const y = Math.floor(Math.random() * tiles.height + 1) + tiles.top;
+    if (objects.find(
+        o => (!o.moving && o.tile.x === x && o.tile.y === y) ||
+        (o.moving && o.target.x === x && o.target.y === y))) {
+      return;
+    }
+
     if (objects.length < tiles.width * tiles.height / 2) {
-      const x = Math.floor(Math.random() * tiles.width + 1) + tiles.left;
-      const y = Math.floor(Math.random() * tiles.height + 1) + tiles.top;
       this.api.send({
         t: 'place',
         x: x,
         y: y
       });
+    } else {
+      const o = objects[Math.floor(Math.random() * objects.length)];
+      if (!o.moving) {
+        this.api.send({
+          t: 'move',
+          id: o.id,
+          x: x,
+          y: y
+        });
+      }
     }
   }
 }

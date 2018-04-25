@@ -13,7 +13,7 @@ export default class Loader {
         if (--n == 0) {
           callback(this, this.owner);
         }
-      }
+      };
 
       img.src = r.url;
     }

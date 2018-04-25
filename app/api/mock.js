@@ -56,7 +56,7 @@ class Controller {
 
     const [, ymin] = p.area;
     const data = [];
-    for (var i = 1; i < coords.length; i += 2) {
+    for (let i = 1; i < coords.length; i += 2) {
       const y = ymin + coords[i];
       data.push(Math.abs(y) % 2);
     }

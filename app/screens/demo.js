@@ -40,6 +40,7 @@ export default class DemoScreen {
     this.api.on('remove', this.onremove.bind(this));
     this.api.on('move', this.onmove.bind(this));
     this.api.on('moved', this.onmoved.bind(this));
+    this.api.on('errors', this.onerrors.bind(this));
 
     this.map = new StaggeredMap(game.api, TILE_SIZE, BOUNDS);
     this.mapRenderer = new StaggeredMapRenderer(
@@ -73,6 +74,10 @@ export default class DemoScreen {
     this.objects = [];
   }
 
+  onerrors(p) {
+    console.warn('demo > onerrors: %o', p.errors);
+  }
+
   onplace(p) {
     console.log('demo > onplace: %o', p);
     p.objects.forEach(o => {
@@ -80,7 +85,7 @@ export default class DemoScreen {
         x: o.x,
         y: o.y
       });
-      sphere.id = o.id
+      sphere.id = o.id;
       this.objects.unshift(sphere);
     });
   }

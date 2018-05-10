@@ -1,13 +1,10 @@
 import Rectangle from '../../lib/math/rectangle';
 import StaggeredMap from '../../lib/staggered-map';
-import {
-  StaggeredMapRenderer
-} from '../../lib/staggered-map/renderer';
+import {StaggeredMapRenderer} from '../../lib/staggered-map/renderer';
 
 import Sphere from '../assets/sphere';
-
-import MapRenderer from './map-renderer';
 import DemoController from './demo-controller';
+import MapRenderer from './map-renderer';
 
 
 const TILE_SIZE = {
@@ -81,12 +78,20 @@ export default class DemoScreen {
   onplace(p) {
     console.log('demo > onplace: %o', p);
     p.objects.forEach(o => {
-      const sphere = new Sphere(this.game.ctx, this.map.viewport, {
-        x: o.x,
-        y: o.y
-      });
-      sphere.id = o.id;
-      this.objects.unshift(sphere);
+      const id = o.id;
+      const index = this.objects.findIndex(o => o.id === id);
+      if (index >= 0) {
+        const sphere = this.objects[index];
+        sphere.tile.x = o.x;
+        sphere.tile.y = o.y;
+      } else {
+        const sphere = new Sphere(this.game.ctx, this.map.viewport, {
+          x: o.x,
+          y: o.y
+        });
+        sphere.id = o.id;
+        this.objects.unshift(sphere);
+      }
     });
   }
 

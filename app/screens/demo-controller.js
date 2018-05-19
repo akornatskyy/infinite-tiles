@@ -18,7 +18,9 @@ export default class DemoController {
   }
 
   onopen() {
-    this.timer = setTimeout(() => setInterval(this.placeOrMove, 250), 2000);
+    setTimeout(() => {
+      this.timer = setInterval(this.placeOrMove, 250);
+    }, 2000);
   }
 
   onclose() {

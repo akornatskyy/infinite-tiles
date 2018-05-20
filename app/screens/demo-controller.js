@@ -56,7 +56,7 @@ export default class DemoController {
   }
 
   placeOrMove() {
-    const tiles = this.screen.map.viewport.tiles();
+    const tiles = this.screen.map.tiles;
     const objects = this.screen.objects;
     const x = Math.floor(Math.random() * tiles.width + 1) + tiles.left;
     const y = Math.floor(Math.random() * tiles.height + 1) + tiles.top;

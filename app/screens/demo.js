@@ -114,8 +114,7 @@ export default class DemoScreen {
       const id = o.id;
       const index = this.objects.findIndex(o => o.id === id);
       if (index >= 0) {
-        const sphere = this.objects[index];
-        this.objects.splice(index, 1);
+        const sphere = this.objects.splice(index, 1)[0];
         this.objects.push(sphere);
         sphere.moveTo({
           x: o.x,
@@ -130,8 +129,7 @@ export default class DemoScreen {
     const id = p.id;
     const index = this.objects.findIndex(o => o.id === id);
     if (index >= 0) {
-      const sphere = this.objects[index];
-      this.objects.splice(index, 1);
+      const sphere = this.objects.splice(index, 1)[0];
       this.objects.unshift(sphere);
       if (this.sphere === sphere) {
         this.sphere = null;

@@ -1,20 +1,51 @@
 import Vector from '../../lib/math/vector';
 
+class Spring {
+  constructor(options) {
+    this.pos = options.pos;
+    this.k = options.k; // spring constant
+    this.b = options.b; // viscous damping coefficient
+    this.l = options.l; // spring length at rest
+    this.velocity = new Vector();
+  }
+
+  update(delta) {
+    const x = this.pos.x;
+    const y = this.pos.y;
+    const l = Math.sqrt(x * x + y * y);
+    const s = l - this.l;
+    let kx = 0;
+    let ky = 0;
+    if (s > 0) {
+      const k = this.k * s / l;
+      kx = k * x;
+      ky = k * y;
+    }
+
+    this.velocity.x += delta * (kx + this.b * this.velocity.x);
+    this.velocity.y += delta * (ky + this.b * this.velocity.y);
+
+    this.pos.scaleAndAdd(this.velocity, delta);
+  }
+}
+
 export default class DemoController {
   constructor(screen) {
     this.screen = screen;
     this.viewport = screen.map.viewport;
     this.time = 0.0;
-    this.velocity = new Vector();
     this.placeOrMove = this.placeOrMove.bind(this);
 
     this.api = screen.api;
     this.api.on('open', this.onopen.bind(this));
     this.api.on('close', this.onclose.bind(this));
 
-    this.k = -0.25; // spring constant
-    this.b = -0.05; // viscous damping coefficient
-    this.l = 128 * 4; // spring length at rest
+    this.spring = new Spring({
+      pos: this.viewport.position,
+      k: -0.25,
+      b: -0.05,
+      l: 128 * 4
+    });
   }
 
   onopen() {
@@ -37,22 +68,11 @@ export default class DemoController {
     if (this.time >= 3.0 /* seconds */ ) {
       this.time = 0.0;
       // apply force
-      this.velocity.x += Math.random() * 101 - 50;
-      this.velocity.y += Math.random() * 101 - 50;
+      this.spring.velocity.x += Math.random() * 101 - 50;
+      this.spring.velocity.y += Math.random() * 101 - 50;
     }
 
-    const p = this.viewport.position;
-    const x = p.x;
-    const y = p.y;
-
-    const l = Math.sqrt(x * x + y * y);
-    const s = l - this.l;
-    const kx = s <= 0 ? 0 : this.k * x * s / l;
-    const ky = s <= 0 ? 0 : this.k * y * s / l;
-    this.velocity.x += delta * (kx + this.b * this.velocity.x);
-    this.velocity.y += delta * (ky + this.b * this.velocity.y);
-
-    p.scaleAndAdd(this.velocity, delta);
+    this.spring.update(delta);
   }
 
   placeOrMove() {

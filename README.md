@@ -56,21 +56,21 @@ Sent by the server when packet validation fails.
 Sent by the client when viewport position changes without a need to retrieve corresponding
 tiles (because corresponding tile meta information available already).
 
-| Field Name | Field Type                            | Notes                                                        |
-| ---------- | ------------------------------------- | ------------------------------------------------------------ |
-| t          | string                                | tiles                                                        |
-| area       | list of int; [xmin, ymin, xmax, ymax] | Rectangular area related to current viewport (left top and right bottom tiles coordinates). Exactly 4 elements. |
+| Field Name | Field Type                        | Notes                                                        |
+| ---------- | --------------------------------- | ------------------------------------------------------------ |
+| t          | string                            | tiles                                                        |
+| area       | list of int; [xmin, ymin, dx, dy] | Rectangular area related to current viewport position (left, top) and size (width, height). Exactly 4 elements. |
 
 ### tiles (metadata)
 
 Sent by the client when viewport position changes and there is a need to retrieve tile metadata.
 
-| Field Name | Field Type                            | Notes                                                        |
-| ---------- | ------------------------------------- | ------------------------------------------------------------ |
-| t          | string                                | tiles                                                        |
-| area       | list of int; [xmin, ymin, xmax, ymax] | see above.                                                   |
-| ref        | unsigned byte, [0..127]               | Reference number to match the server response. Incremented for each new request. |
-| coords     | list of int; [x,y,...]                | The list of tiles coordinates relative to area xmin, ymin parameters. The length is even number. |
+| Field Name | Field Type                        | Notes                                                        |
+| ---------- | --------------------------------- | ------------------------------------------------------------ |
+| t          | string                            | tiles                                                        |
+| area       | list of int; [xmin, ymin, dx, dy] | see above.                                                   |
+| ref        | unsigned byte, [0..127]           | Reference number to match the server response. Incremented for each new request. |
+| coords     | list of int; [x,y,...]            | The list of tiles coordinates relative to area xmin, ymin parameters. The length is even number. |
 
 Sent by the server in response to the client request.
 

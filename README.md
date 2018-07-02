@@ -140,8 +140,8 @@ Object contains the following information.
 | id         | string     | Object id.                            |
 | x          | int        | The target tile x-coordinate.         |
 | y          | int        | The target tile y-coordinate.         |
-| duration   | float      | The overall time to perform the move. |
-| elapsed    | float      | The time elapsed already.             |
+| time       | int        | The timestamp of the move.            |
+| duration   | int        | The overall time to perform the move. |
 
 ### moved
 

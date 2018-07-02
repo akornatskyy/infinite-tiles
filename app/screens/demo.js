@@ -1,6 +1,8 @@
 import Rectangle from '../../lib/math/rectangle';
 import StaggeredMap from '../../lib/staggered-map';
-import {StaggeredMapRenderer} from '../../lib/staggered-map/renderer';
+import {
+  StaggeredMapRenderer
+} from '../../lib/staggered-map/renderer';
 
 import Sphere from '../assets/sphere';
 import DemoController from './demo-controller';
@@ -110,16 +112,18 @@ export default class DemoScreen {
 
   onmove(p) {
     console.log('demo > onmove: %o', p);
+    const ts = Date.now() / 1000.0;
     p.objects.forEach(o => {
       const id = o.id;
       const index = this.objects.findIndex(o => o.id === id);
       if (index >= 0) {
         const sphere = this.objects.splice(index, 1)[0];
         this.objects.push(sphere);
+        const elapsed = ts - o.time;
         sphere.moveTo({
           x: o.x,
           y: o.y
-        }, o.duration, o.elapsed);
+        }, o.duration, elapsed);
       }
     });
   }

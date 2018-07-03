@@ -1,7 +1,11 @@
 import Rectangle from '../../lib/math/rectangle';
 
-import {StaggeredTileRenderer} from '../../lib/staggered-map/renderer';
-import {MoverMixin} from '../../lib/staggered-map/mixins';
+import {
+  StaggeredTileRenderer
+} from '../../lib/staggered-map/renderer';
+import {
+  MoverMixin
+} from '../../lib/staggered-map/mixins';
 
 import Assets from '../assets';
 

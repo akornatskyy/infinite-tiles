@@ -28,7 +28,11 @@ export default class Game {
   render(ts) {
     const delta = (ts - this.ts) / 1000.0;
     this.ts = ts;
-    this.screen.render(Math.min(delta, 0.06));
+    if (delta > 0.06) {
+      console.warn('game > render : delta = %s', delta);
+    }
+
+    this.screen.render(delta);
     window.requestAnimationFrame(this.render);
   }
 }

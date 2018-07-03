@@ -10,6 +10,10 @@ class Spring {
   }
 
   update(delta) {
+    if (delta > 0.06) {
+      delta = 0.06;
+    }
+
     const x = this.pos.x;
     const y = this.pos.y;
     const l = Math.sqrt(x * x + y * y);
@@ -33,8 +37,8 @@ export default class DemoController {
   constructor(screen) {
     this.screen = screen;
     this.viewport = screen.map.viewport;
-    this.time = 0.0;
     this.placeOrMove = this.placeOrMove.bind(this);
+    this.applyForce = this.applyForce.bind(this);
 
     this.api = screen.api;
     this.api.on('open', this.onopen.bind(this));
@@ -49,6 +53,7 @@ export default class DemoController {
   }
 
   onopen() {
+    this.forceTimer = setInterval(this.applyForce, 3000);
     setTimeout(() => {
       this.timer = setInterval(this.placeOrMove, 250);
     }, 2000);
@@ -56,23 +61,18 @@ export default class DemoController {
 
   onclose() {
     clearInterval(this.timer);
+    clearInterval(this.forceTimer);
     this.timer = null;
   }
 
   update(delta) {
-    if (!this.timer) {
-      return;
-    }
-
-    this.time += delta;
-    if (this.time >= 3.0 /* seconds */ ) {
-      this.time = 0.0;
-      // apply force
-      this.spring.velocity.x += Math.random() * 101 - 50;
-      this.spring.velocity.y += Math.random() * 101 - 50;
-    }
-
     this.spring.update(delta);
+  }
+
+  applyForce() {
+    const v = this.spring.velocity;
+    v.x += Math.random() * 101 - 50;
+    v.y += Math.random() * 101 - 50;
   }
 
   placeOrMove() {

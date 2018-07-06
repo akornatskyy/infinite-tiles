@@ -112,7 +112,7 @@ export default class DemoScreen {
 
   onmove(p) {
     console.log('demo > onmove: %o', p);
-    const ts = Date.now() / 1000.0;
+    const ts = Date.now() / 1000.0 + this.game.delta;
     p.objects.forEach(o => {
       const id = o.id;
       const index = this.objects.findIndex(o => o.id === id);

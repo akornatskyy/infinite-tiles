@@ -51,6 +51,26 @@ Sent by the server when packet validation fails.
 | t          | string             | errors                                                       |
 | errors     | map of string list | The map uses  a key to refer to a particular packet field name and a list of strings for multiple error messages. |
 
+### ping
+
+Sent by the client to the server to sync on clock difference.
+
+| Field Name | Field Type | Notes                   |
+| ---------- | ---------- | ----------------------- |
+| t          | string     | ping                 |
+| time       | float      | The client unix timestamp in seconds (including milliseconds as the decimal part). |
+
+### pong
+
+Sent by the server to the client in reply to ping packet.
+
+| Field Name | Field Type | Notes                                                        |
+| ---------- | ---------- | ------------------------------------------------------------ |
+| t          | string     | pong                                                         |
+| tc         | float      | The client unix timestamp as sent in ping packet.            |
+| ts         | float      | The server unix timestamp in seconds (including milliseconds as the decimal part).. |
+
+
 ### tiles (viewport change)
 
 Sent by the client when viewport position changes without a need to retrieve corresponding

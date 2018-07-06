@@ -26,6 +26,9 @@ export default class MockAPI {
   send(p) {
     console.log('api > send: %o', p);
     switch (p.t) {
+      case 'ping':
+        this.controller.ping(p);
+        break;
       case 'tiles':
         toxic(() => this.controller.tiles(p));
         break;
@@ -46,6 +49,13 @@ class Controller {
     this.eventEmitter = eventEmitter;
     this.objects = [];
     setTimeout(() => setInterval(this.recycle.bind(this), 1000), 5000);
+  }
+
+  ping(p) {
+    this.eventEmitter.emit('pong', {
+      tc: p.time,
+      ts: Date.now() / 1000.0
+    });
   }
 
   tiles(p) {
@@ -86,14 +96,16 @@ class Controller {
       this.objects.splice(index, 1);
     }
 
-    const duration = 1 + Math.random() * 5;
+    const ts = Date.now();
+    const t = Math.floor(ts / 1000.0);
+    const duration = 1 + Math.floor(Math.random() * 5);
     this.eventEmitter.emit('move', {
       objects: [{
         id: id,
         x: p.x,
         y: p.y,
-        duration: duration,
-        elapsed: 0
+        time: t + 1,
+        duration: duration
       }]
     });
     setTimeout(
@@ -103,7 +115,7 @@ class Controller {
           id: id
         });
       },
-      duration * 1000);
+      duration * 1000 + (ts - t * 1000));
   }
 
   recycle() {

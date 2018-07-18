@@ -8,11 +8,14 @@ export default class Game {
   constructor(canvas) {
     this.canvas = canvas;
     this.ctx = canvas.getContext('2d');
-    this.api = new Api();
     this.ts = 0;
     this.delta = 0;
     this.render = this.render.bind(this);
     this.ping = this.ping.bind(this);
+    this.api = new Api();
+    this.api.on('open', this.onopen.bind(this));
+    this.api.on('close', this.onclose.bind(this));
+    this.api.on('pong', this.onpong.bind(this));
   }
 
   start() {
@@ -20,12 +23,7 @@ export default class Game {
       throw new Error('screen is not set');
     }
 
-    Assets.load(() => {
-      this.api.on('open', this.onopen.bind(this));
-      this.api.on('close', this.onclose.bind(this));
-      this.api.on('pong', this.onpong.bind(this));
-      this.api.connect();
-    });
+    Assets.load(() => this.api.connect());
   }
 
   render(ts) {

@@ -3,7 +3,6 @@ const path = require('path');
 const pkg = require('./package.json');
 const webpack = require('webpack');
 const HtmlPlugin = require('html-webpack-plugin');
-const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
 
 const plugins = [
   new HtmlPlugin({
@@ -13,6 +12,7 @@ const plugins = [
 ];
 
 if (prod) {
+  const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
   plugins.push(
     new webpack.optimize.OccurrenceOrderPlugin(),
     new UglifyJsPlugin());
@@ -76,13 +76,16 @@ module.exports = {
 
 if (process.env.API === 'ws') {
   module.exports.entry.lib.push('msgpack-lite');
-  module.exports.module.rules.push({
-    test: path.join(__dirname, 'app', 'api', 'ws.js'),
-    loader: 'string-replace-loader',
-    query: {
-      search: 'host = \'\'',
-      replace: 'host = "' + (process.env.WS_HOST || '') + '"',
-      strict: true
-    }
-  });
+  if (process.env.WS_HOST) {
+    module.exports.module.rules.push({
+      test: path.join(__dirname, 'app', 'api', 'ws.js'),
+      loader: 'string-replace-loader',
+      query: {
+        search: 'host = .+$',
+        replace: 'host = "' + (process.env.WS_HOST || '') + '"',
+        flags: 'm',
+        strict: true
+      }
+    });
+  }
 }

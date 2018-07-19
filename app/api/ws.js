@@ -1,7 +1,7 @@
 import EventEmitter from 'events';
 import mp from 'msgpack-lite';
 
-const host = '';
+const host = origin.replace(/^http/, 'ws') + '/game';
 
 export default class WebSocketAPI {
   constructor() {
@@ -31,7 +31,7 @@ export default class WebSocketAPI {
   send(packet) {
     console.log('api > send: %o', packet);
     const message = mp.encode(packet);
-    if (this.ws.readyState === 1 /* OPEN */) {
+    if (this.ws.readyState === 1 /* OPEN */ ) {
       this.ws.send(message);
     } else {
       this.queue.push(message);

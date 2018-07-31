@@ -7,7 +7,7 @@
     "build": "rm -rf dist && webpack -p",
     "lint": "eslint *.js",
     "start": "webpack-dev-server",
-    "test": "jest -b --useStderr",
+    "test": "jest -b --useStderr --env=node",
     "test:watch": "jest --watch"
   },
   "repository": {

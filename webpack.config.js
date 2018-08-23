@@ -14,8 +14,8 @@ const plugins = [
 if (prod) {
   const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
   plugins.push(
-    new webpack.optimize.OccurrenceOrderPlugin(),
-    new UglifyJsPlugin());
+      new webpack.optimize.OccurrenceOrderPlugin(),
+      new UglifyJsPlugin());
 }
 
 module.exports = {

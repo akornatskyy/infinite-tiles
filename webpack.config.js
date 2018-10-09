@@ -55,7 +55,7 @@ module.exports = {
       test: /\.js$/,
       loader: 'babel-loader',
       query: {
-        presets: ['es2015']
+        cacheDirectory: true
       }
     }, {
       test: /\.(jpg|png)$/,

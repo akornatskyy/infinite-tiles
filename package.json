@@ -39,7 +39,7 @@
     "string-replace-loader": "^2.2.0",
     "uglifyjs-webpack-plugin": "^2.2.0",
     "webpack": "^4.38.0",
-    "webpack-cli": "^3.3.6",
+    "webpack-cli": "^3.3.7",
     "webpack-dev-server": "^3.7.2"
   }
 }

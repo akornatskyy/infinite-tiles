@@ -69,6 +69,6 @@ export default class Game {
     this.delta = delta + latency;
 
     console.log('game > latency: %sms; delta: %ss',
-      (latency * 1000).toFixed(1), this.delta.toFixed(6));
+        (latency * 1000).toFixed(1), this.delta.toFixed(6));
   }
 }

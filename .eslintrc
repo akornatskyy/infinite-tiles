@@ -20,6 +20,9 @@
     "sourceType": "module"
   },
   "globals": {
+    "describe": true,
+    "it": true,
+    "expect": true
   },
   "plugins": [
     "standard"

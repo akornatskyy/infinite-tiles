@@ -43,8 +43,8 @@ export default class DemoScreen {
 
     this.map = new StaggeredMap(game.api, TILE_SIZE, BOUNDS);
     this.mapRenderer = new StaggeredMapRenderer(
-      this.map,
-      new MapRenderer(game.ctx, this.map.storage, TILE_SIZE, BOUNDS, debug));
+        this.map,
+        new MapRenderer(game.ctx, this.map.storage, TILE_SIZE, BOUNDS, debug));
 
     this.controller = new DemoController(this);
   }
@@ -62,7 +62,7 @@ export default class DemoScreen {
 
   draw() {
     this.game.ctx.clearRect(
-      0, 0, this.game.canvas.width, this.game.canvas.height);
+        0, 0, this.game.canvas.width, this.game.canvas.height);
     this.mapRenderer.draw();
     this.objects.forEach(o => o.draw());
   }

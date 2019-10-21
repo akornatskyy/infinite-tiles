@@ -24,15 +24,16 @@ export default class MapRenderer {
     }
 
     this.ctx.drawImage(
-      Assets.tiles,
-      this.tileSize.width * index, 0, this.tileSize.width, this.tileSize.height,
-      x, y, this.tileSize.width, this.tileSize.height);
+        Assets.tiles,
+        this.tileSize.width * index, 0,
+        this.tileSize.width, this.tileSize.height,
+        x, y, this.tileSize.width, this.tileSize.height);
 
     if (this.debug) {
       this.ctx.fillText(
-        tx + ':' + ty,
-        x + this.tileSize.halfWidth,
-        y + this.tileSize.halfHeight + 3);
+          tx + ':' + ty,
+          x + this.tileSize.halfWidth,
+          y + this.tileSize.halfHeight + 3);
     }
   }
 
@@ -43,8 +44,8 @@ export default class MapRenderer {
       this.ctx.beginPath();
       this.ctx.strokeStyle = 'red';
       this.ctx.rect(
-        this.bounds.left, this.bounds.top,
-        this.bounds.width, this.bounds.height);
+          this.bounds.left, this.bounds.top,
+          this.bounds.width, this.bounds.height);
       this.ctx.stroke();
     }
   }

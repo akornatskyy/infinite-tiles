@@ -6,7 +6,7 @@ export default class Loader {
 
   load(callback) {
     let n = this.resources.length;
-    for (let r of this.resources) {
+    for (const r of this.resources) {
       const img = new Image();
       this.owner[r.name] = img;
       img.onload = () => {

@@ -4,17 +4,17 @@ import {
   StaggeredTileRenderer
 } from '../../lib/staggered-map/renderer';
 import {
-  MoverMixin
+  moverMixin
 } from '../../lib/staggered-map/mixins';
 
 import Assets from '../assets';
 
-export default class Sphere extends MoverMixin(StaggeredTileRenderer) {
+export default class Sphere extends moverMixin(StaggeredTileRenderer) {
   constructor(ctx, viewport, tile) {
     super(viewport, tile, new Rectangle(
-      (viewport.world.tileSize.width - Assets.sphere.width) / 2,
-      (viewport.world.tileSize.height - Assets.sphere.height) / 2,
-      Assets.sphere.width, Assets.sphere.height));
+        (viewport.world.tileSize.width - Assets.sphere.width) / 2,
+        (viewport.world.tileSize.height - Assets.sphere.height) / 2,
+        Assets.sphere.width, Assets.sphere.height));
     this.ctx = ctx;
   }
 

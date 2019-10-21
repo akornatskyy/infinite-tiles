@@ -4,10 +4,10 @@
   "description": "Infinite Tiles",
   "main": "./index.js",
   "scripts": {
+    "start": "webpack-dev-server -d",
+    "lint": "eslint **/*.js",
     "build": "rm -rf dist && webpack -p",
-    "lint": "eslint *.js",
-    "start": "webpack-dev-server",
-    "test": "jest -b --useStderr --env=node",
+    "test": "jest",
     "test:watch": "jest --watch"
   },
   "repository": {
@@ -24,8 +24,8 @@
     "msgpack-lite": "^0.1.26"
   },
   "devDependencies": {
-    "@babel/core": "^7.6.2",
-    "@babel/preset-env": "^7.6.2",
+    "@babel/core": "^7.6.4",
+    "@babel/preset-env": "^7.6.3",
     "babel-core": "^7.0.0-bridge.0",
     "babel-jest": "^24.9.0",
     "babel-loader": "^8.0.6",
@@ -38,8 +38,8 @@
     "png-js": "^0.1.1",
     "string-replace-loader": "^2.2.0",
     "uglifyjs-webpack-plugin": "^2.2.0",
-    "webpack": "^4.41.0",
+    "webpack": "^4.41.2",
     "webpack-cli": "^3.3.9",
-    "webpack-dev-server": "^3.8.2"
+    "webpack-dev-server": "^3.9.0"
   }
 }

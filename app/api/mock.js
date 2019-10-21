@@ -108,14 +108,13 @@ class Controller {
         duration: duration
       }]
     });
-    setTimeout(
-      () => {
-        this.objects.push(id);
-        this.eventEmitter.emit('moved', {
-          id: id
-        });
-      },
-      duration * 1000 + (ts - t * 1000));
+    setTimeout(() => {
+      this.objects.push(id);
+      this.eventEmitter.emit('moved', {
+        id: id
+      });
+    },
+    duration * 1000 + (ts - t * 1000));
   }
 
   recycle() {

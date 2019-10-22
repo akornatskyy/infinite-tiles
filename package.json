@@ -5,7 +5,7 @@
   "main": "./index.js",
   "scripts": {
     "start": "webpack-dev-server -d",
-    "lint": "eslint **/*.js",
+    "lint": "eslint ./ --ext .js",
     "build": "rm -rf dist && webpack -p",
     "test": "jest",
     "test:watch": "jest --watch"

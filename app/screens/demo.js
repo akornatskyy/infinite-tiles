@@ -3,6 +3,7 @@ import StaggeredMap from '../../lib/staggered-map';
 import {
   StaggeredMapRenderer
 } from '../../lib/staggered-map/renderer';
+import draggable from '../../lib/draggable';
 
 import Sphere from '../assets/sphere';
 import DemoController from './demo-controller';
@@ -46,6 +47,9 @@ export default class DemoScreen {
         this.map,
         new MapRenderer(game.ctx, this.map.storage, TILE_SIZE, BOUNDS, debug));
 
+    draggable(this.game.canvas).addEventListener(
+        'mousedrag', this.onmousedrag.bind(this));
+
     this.controller = new DemoController(this);
   }
 
@@ -65,6 +69,11 @@ export default class DemoScreen {
         0, 0, this.game.canvas.width, this.game.canvas.height);
     this.mapRenderer.draw();
     this.objects.forEach(o => o.draw());
+  }
+
+  onmousedrag(e) {
+    this.map.viewport.position.x -= e.movementX;
+    this.map.viewport.position.y -= e.movementY;
   }
 
   /* API callbacks */

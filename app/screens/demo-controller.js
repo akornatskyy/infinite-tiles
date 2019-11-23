@@ -55,7 +55,7 @@ export default class DemoController {
   onopen() {
     this.forceTimer = setInterval(this.applyForce, 3000);
     setTimeout(() => {
-      this.timer = setInterval(this.placeOrMove, 250);
+      this.timer = setInterval(this.placeOrMove, 150);
     }, 2000);
   }
 

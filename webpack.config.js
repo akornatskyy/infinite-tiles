@@ -15,7 +15,14 @@ if (prod) {
   const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
   plugins.push(
       new webpack.optimize.OccurrenceOrderPlugin(),
-      new UglifyJsPlugin());
+      new UglifyJsPlugin({
+        uglifyOptions: {
+          compress: {
+            drop_console: true,
+            unsafe: true
+          }
+        }
+      }));
 }
 
 module.exports = {
@@ -23,6 +30,7 @@ module.exports = {
   entry: {
     app: pkg.main,
     lib: [
+      './lib/draggable',
       './lib/staggered-map',
       './lib/staggered-map/mixins',
       './lib/staggered-map/renderer'

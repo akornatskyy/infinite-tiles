@@ -1,13 +1,15 @@
 import Loader from './loader';
+import Tiles from '../static/tiles.png';
+import Sphere from '../static/sphere.png';
 
 export default class Assets {
   static load(callback) {
     const resources = [{
       name: 'tiles',
-      url: require('../static/tiles.png')
+      url: Tiles
     }, {
       name: 'sphere',
-      url: require('../static/sphere.png')
+      url: Sphere
     }];
     const loader = new Loader(resources, this);
     loader.load(callback);

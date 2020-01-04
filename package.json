@@ -24,8 +24,8 @@
     "msgpack-lite": "^0.1.26"
   },
   "devDependencies": {
-    "@babel/core": "^7.7.7",
-    "@babel/preset-env": "^7.7.7",
+    "@babel/core": "^7.8.0",
+    "@babel/preset-env": "^7.8.2",
     "babel-core": "^7.0.0-bridge.0",
     "babel-jest": "^24.9.0",
     "babel-loader": "^8.0.6",
@@ -38,7 +38,7 @@
     "png-js": "^1.0.0",
     "string-replace-loader": "^2.2.0",
     "uglifyjs-webpack-plugin": "^2.2.0",
-    "webpack": "^4.41.4",
+    "webpack": "^4.41.5",
     "webpack-cli": "^3.3.10",
     "webpack-dev-server": "^3.10.1"
   }

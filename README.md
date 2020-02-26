@@ -21,7 +21,11 @@ or *ws* (web socket), production build:
 
 Serve files with a web server with hot loading:
 
+    ```sh
     npm start
+    # or using web sockets
+    API=ws WS_HOST=ws://192.168.56.10:8080/game npm start
+    ```
 
 Open your browser at [http://localhost:8080](http://localhost:8080).
 
@@ -69,7 +73,6 @@ Sent by the server to the client in reply to ping packet.
 | t          | string     | pong                                                         |
 | tc         | float      | The client unix timestamp as sent in ping packet.            |
 | ts         | float      | The server unix timestamp in seconds (including milliseconds as the decimal part).. |
-
 
 ### tiles (viewport change)
 
@@ -137,7 +140,6 @@ Sent by the server to the client to remove an object by id.
 ### move
 
 Sent by the client to the server to move an object to specified tile.
-
 
 | Field Name | Field Type | Notes                   |
 | ---------- | ---------- | ----------------------- |

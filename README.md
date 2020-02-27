@@ -21,11 +21,11 @@ or *ws* (web socket), production build:
 
 Serve files with a web server with hot loading:
 
-    ```sh
-    npm start
-    # or using web sockets
-    API=ws WS_HOST=ws://192.168.56.10:8080/game npm start
-    ```
+```sh
+npm start
+# or using web sockets
+API=ws WS_HOST=ws://192.168.56.10:8080/game npm start
+```
 
 Open your browser at [http://localhost:8080](http://localhost:8080).
 

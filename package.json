@@ -38,7 +38,7 @@
     "png-js": "^1.0.0",
     "string-replace-loader": "^2.2.0",
     "uglifyjs-webpack-plugin": "^2.2.0",
-    "webpack": "^4.41.5",
+    "webpack": "^4.42.1",
     "webpack-cli": "^3.3.10",
     "webpack-dev-server": "^3.10.1"
   }

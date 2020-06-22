@@ -24,7 +24,7 @@
     "msgpack-lite": "^0.1.26"
   },
   "devDependencies": {
-    "@babel/core": "^7.10.2",
+    "@babel/core": "^7.10.3",
     "@babel/preset-env": "^7.10.2",
     "babel-core": "^7.0.0-bridge.0",
     "babel-jest": "^26.0.1",

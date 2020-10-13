@@ -1,99 +1,88 @@
-const prod = process.env.NODE_ENV && process.env.NODE_ENV.startsWith('prod');
 const path = require('path');
 const pkg = require('./package.json');
-const webpack = require('webpack');
 const HtmlPlugin = require('html-webpack-plugin');
+const TerserPlugin = require('terser-webpack-plugin');
 
 const plugins = [
   new HtmlPlugin({
     title: pkg.description
-  }),
-  new webpack.NoEmitOnErrorsPlugin()
+  })
 ];
 
-if (prod) {
-  const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
-  plugins.push(
-      new webpack.optimize.OccurrenceOrderPlugin(),
-      new UglifyJsPlugin({
-        uglifyOptions: {
-          compress: {
-            drop_console: true,
-            unsafe: true
+module.exports = (env, argv) => {
+  const api = env && env.API || 'mock';
+  const devMode = argv.mode !== 'production';
+  const config = {
+    mode: 'development',
+    entry: {
+      app: pkg.main
+    },
+    output: {
+      filename: 'js/[name].[chunkhash:5].js',
+      path: path.resolve(__dirname, 'dist')
+    },
+    resolve: {
+      alias: {
+        api: './api/' + api
+      }
+    },
+    devtool: devMode ? 'source-map' : undefined,
+    plugins: plugins,
+    optimization: {
+      splitChunks: {
+        cacheGroups: {
+          lib: {
+            name: 'lib',
+            chunks: 'all',
+            test: /[\\/]node_modules[\\/]|[\\/]lib[\\/]/
           }
         }
-      }));
-}
-
-module.exports = {
-  mode: prod ? 'production' : 'development',
-  entry: {
-    app: pkg.main,
-    lib: [
-      './lib/draggable',
-      './lib/staggered-map',
-      './lib/staggered-map/mixins',
-      './lib/staggered-map/renderer'
-    ]
-  },
-  output: {
-    filename: 'js/[name].[chunkhash:5].js',
-    path: path.resolve(__dirname, 'dist')
-  },
-  resolve: {
-    alias: {
-      api: './api/' + (process.env.API || 'mock')
-    }
-  },
-  plugins: plugins,
-  optimization: {
-    splitChunks: {
-      cacheGroups: {
-        commons: {
-          chunks: 'initial',
-          minChunks: 2,
-          name: 'lib',
-          minSize: 0
+      },
+      minimizer: [
+        new TerserPlugin({
+          extractComments: false,
+          terserOptions: {
+            output: {
+              comments: false,
+            },
+          },
+        })
+      ],
+    },
+    module: {
+      rules: [
+        {
+          test: /\.js$/,
+          exclude: /node_modules/,
+          loader: 'babel-loader'
+        },
+        {
+          test: /\.(jpg|png)$/,
+          loader: 'file-loader',
+          options: {
+            name: '[path][name].[hash:5].[ext]'
+          }
         }
-      }
+      ]
+    },
+    devServer: {
+      host: '127.0.0.1',
+      compress: true
     }
-  },
-  module: {
-    rules: [{
-      test: /\.js$/,
-      loader: 'babel-loader',
-      query: {
-        cacheDirectory: true
-      }
-    }, {
-      test: /\.(jpg|png)$/,
-      loader: 'file-loader',
-      query: {
-        name: '[path][name].[hash:5].[ext]'
-      }
-    }]
-  },
-  stats: {
-    colors: true
-  },
-  devServer: {
-    host: '127.0.0.1',
-    compress: true
-  }
-};
+  };
 
-if (process.env.API === 'ws') {
-  module.exports.entry.lib.push('msgpack-lite');
-  if (process.env.WS_HOST) {
-    module.exports.module.rules.push({
+  if (api === 'ws' && env.WS_HOST) {
+    config.module.rules.push({
       test: path.join(__dirname, 'app', 'api', 'ws.js'),
       loader: 'string-replace-loader',
-      query: {
+      options: {
         search: 'host = .+$',
-        replace: 'host = "' + (process.env.WS_HOST || '') + '"',
+        replace: `host = "${env.WS_HOST}'"`,
         flags: 'm',
         strict: true
       }
     });
   }
-}
+
+  return config;
+};

@@ -15,17 +15,18 @@ Build resources with *mock* api strategy:
 
 or *ws* (web socket), production build:
 
-    NODE_ENV=prod API=ws WS_HOST=ws://192.168.56.10:8080/game npm run build
+    npm run build -- --env API=ws --env WS_HOST=ws://192.168.56.10:8080/game \
+        --mode=production
 
 ## Run
 
 Serve files with a web server with hot loading:
 
-```sh
-npm start
-# or using web sockets
-API=ws WS_HOST=ws://192.168.56.10:8080/game npm start
-```
+    ```sh
+    npm start
+    # or using web sockets
+    npm start -- --env API=ws --env WS_HOST=ws://192.168.56.10:8080/game
+    ```
 
 Open your browser at [http://localhost:8080](http://localhost:8080).
 

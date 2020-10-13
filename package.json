@@ -1,12 +1,12 @@
 {
   "name": "infinite-tiles",
-  "version": "0.0.1",
+  "version": "1.0.0",
   "description": "Infinite Tiles",
   "main": "./index.js",
   "scripts": {
-    "start": "webpack-dev-server -d",
+    "start": "webpack serve",
     "lint": "eslint index.js webpack.config.js app/ lib/ --ext .js",
-    "build": "rm -rf dist && webpack -p",
+    "build": "rm -rf dist && webpack",
     "test": "jest",
     "test:watch": "jest --watch"
   },
@@ -24,23 +24,22 @@
     "msgpack-lite": "^0.1.26"
   },
   "devDependencies": {
-    "@babel/core": "^7.11.6",
-    "@babel/preset-env": "^7.11.5",
-    "@types/jest": "^26.0.14",
-    "babel-core": "^7.0.0-bridge.0",
-    "babel-jest": "^26.3.0",
+    "@babel/core": "^7.12.3",
+    "@babel/preset-env": "^7.12.1",
+    "@types/jest": "^26.0.15",
+    "babel-jest": "^26.6.1",
     "babel-loader": "^8.1.0",
-    "eslint": "^7.9.0",
+    "eslint": "^7.12.1",
     "eslint-config-google": "^0.14.0",
-    "eslint-plugin-standard": "^4.0.1",
-    "file-loader": "^6.1.0",
+    "eslint-plugin-standard": "^4.0.2",
+    "file-loader": "^6.2.0",
     "html-webpack-plugin": "^4.5.0",
-    "jest": "^26.4.2",
+    "jest": "^26.6.1",
     "png-js": "^1.0.0",
     "string-replace-loader": "^2.3.0",
-    "uglifyjs-webpack-plugin": "^2.2.0",
-    "webpack": "^4.44.2",
-    "webpack-cli": "^3.3.12",
+    "terser-webpack-plugin": "^5.0.3",
+    "webpack": "^5.3.1",
+    "webpack-cli": "^4.1.0",
     "webpack-dev-server": "^3.11.0"
   }
 }

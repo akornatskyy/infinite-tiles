@@ -36,7 +36,7 @@
     "html-webpack-plugin": "^4.5.0",
     "jest": "^26.6.1",
     "png-js": "^1.0.0",
-    "string-replace-loader": "^2.3.0",
+    "string-replace-loader": "^3.0.0",
     "terser-webpack-plugin": "^5.0.3",
     "webpack": "^5.3.1",
     "webpack-cli": "^4.1.0",

@@ -77,7 +77,7 @@ module.exports = (env, argv) => {
       loader: 'string-replace-loader',
       options: {
         search: 'host = .+$',
-        replace: `host = "${env.WS_HOST}'"`,
+        replace: `host = "${env.WS_HOST}"`,
         flags: 'm',
         strict: true
       }

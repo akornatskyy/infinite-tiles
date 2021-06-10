@@ -13,7 +13,7 @@ module.exports = (env, argv) => {
   const api = env && env.API || 'mock';
   const devMode = argv.mode !== 'production';
   const config = {
-    mode: 'development',
+    mode: argv.mode ? argv.mode : 'development',
     entry: {
       app: pkg.main
     },

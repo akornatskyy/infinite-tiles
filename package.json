@@ -33,7 +33,7 @@
     "eslint-plugin-standard": "^5.0.0",
     "file-loader": "^6.2.0",
     "html-webpack-plugin": "^5.3.1",
-    "jest": "^27.0.4",
+    "jest": "^27.0.5",
     "png-js": "^1.0.0",
     "string-replace-loader": "^3.0.2",
     "terser-webpack-plugin": "^5.1.3",

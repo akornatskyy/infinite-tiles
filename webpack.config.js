@@ -60,7 +60,7 @@ module.exports = (env, argv) => {
           test: /\.(jpg|png)$/,
           loader: 'file-loader',
           options: {
-            name: '[path][name].[hash:5].[ext]'
+            name: '[path][name].[md5:contenthash:base58:5].[ext]',
           }
         }
       ]

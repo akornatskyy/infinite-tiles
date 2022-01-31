@@ -23,21 +23,21 @@
     "msgpack-lite": "^0.1.26"
   },
   "devDependencies": {
-    "@babel/core": "^7.16.7",
-    "@babel/preset-env": "^7.16.8",
+    "@babel/core": "^7.17.0",
+    "@babel/preset-env": "^7.16.11",
     "@types/jest": "^27.4.0",
-    "babel-jest": "^27.4.6",
+    "babel-jest": "^27.5.0",
     "babel-loader": "^8.2.3",
-    "eslint": "^8.6.0",
+    "eslint": "^8.8.0",
     "eslint-config-google": "^0.14.0",
     "file-loader": "^6.2.0",
     "html-webpack-plugin": "^5.5.0",
-    "jest": "^27.4.7",
+    "jest": "^27.5.0",
     "png-js": "^1.0.0",
     "string-replace-loader": "^3.1.0",
-    "terser-webpack-plugin": "^5.3.0",
-    "webpack": "^5.65.0",
-    "webpack-cli": "^4.9.1",
-    "webpack-dev-server": "^4.7.2"
+    "terser-webpack-plugin": "^5.3.1",
+    "webpack": "^5.68.0",
+    "webpack-cli": "^4.9.2",
+    "webpack-dev-server": "^4.7.4"
   }
 }

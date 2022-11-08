@@ -27,7 +27,7 @@
     "@babel/preset-env": "^7.18.10",
     "@types/jest": "^29.0.0",
     "babel-jest": "^29.0.1",
-    "babel-loader": "^8.2.5",
+    "babel-loader": "^9.1.0",
     "eslint": "^8.23.0",
     "eslint-config-google": "^0.14.0",
     "file-loader": "^6.2.0",
